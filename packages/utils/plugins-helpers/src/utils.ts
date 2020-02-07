@@ -1,4 +1,4 @@
-import { GraphQLOutputType, GraphQLNamedType, GraphQLNonNull, GraphQLList, isListType, isNonNullType } from 'graphql';
+import { GraphQLOutputType, GraphQLNamedType, GraphQLNonNull, GraphQLList, isListType, isNonNullType, GraphQLField, SchemaMetaFieldDef, TypeMetaFieldDef, TypeNameMetaFieldDef } from 'graphql';
 import { Types } from './types';
 
 export function mergeOutputs(content: Types.PluginOutput | Array<Types.PluginOutput>): string {
@@ -29,4 +29,12 @@ export function getBaseType(type: GraphQLOutputType): GraphQLNamedType {
   } else {
     return type;
   }
+}
+
+export function getMetaFields(): Record<string, GraphQLField<any, any>> {
+  return {
+    __schema: SchemaMetaFieldDef,
+    __type: TypeMetaFieldDef,
+    __typename: TypeNameMetaFieldDef,
+  };
 }
